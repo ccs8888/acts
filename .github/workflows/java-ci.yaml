@@ -1,10 +1,8 @@
-name: Java CI
+name: Run Java Program
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "jcode" ]
 
 jobs:
   build:
@@ -19,10 +17,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: maven
-
-      - name: Install Playwright browsers
-        run: mvn -f java/pom.xml playwright:install
 
       - name: Build with Maven
-        run: mvn -B package --file java/pom.xml
+        run: mvn -f java/pom.xml clean package
+
+      - name: Run Program
+        run: mvn -f java/pom.xml exec:java
